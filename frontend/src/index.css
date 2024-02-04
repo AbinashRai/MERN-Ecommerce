@@ -10,3 +10,7 @@
   max-width: 400px;
   width: 100%;
 }
+
+img.large {
+  max-width: 100%;
+}

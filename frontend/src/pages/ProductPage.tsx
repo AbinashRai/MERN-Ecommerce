@@ -4,15 +4,13 @@ import axios from "axios";
 import { Badge, Button, Card, Col, ListGroup, Row } from "react-bootstrap";
 
 const ProductPage = () => {
-  const slug = "ben-slim-shirt";
+  const slug = "adidas-fit-shirt";
   const [product, setProduct] = useState<Product | null>(null);
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        console.log(`Fetching data for product with slug: ${slug}`);
         const response = await axios.get(`/api/products/${slug}`);
-        console.log("Response:", response.data);
         setProduct(response.data);
       } catch (err) {
         console.log(err);
