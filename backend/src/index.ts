@@ -1,6 +1,23 @@
 import express, { Request, Response } from "express";
 import cors from "cors";
 import { sampleProducts } from "./data";
+import dotenv from "dotenv";
+import mongoose from "mongoose";
+
+dotenv.config();
+
+const MONGODB_URI =
+     process.env.MONGODB_URI || 'mongodb://localhost/ecommercedb'
+   mongoose.set('strictQuery', true)
+   mongoose
+     .connect(MONGODB_URI)
+     .then(() => {
+       console.log('connected to mongodb')
+     })
+     .catch(() => {
+       console.log('error mongodb')
+     })
+
 const app = express();
 app.use(
   cors({
