@@ -10,7 +10,7 @@ const ProductPage = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get(`/api/products/${slug}`);
+        const response = await axios.get(`/api/products/slug/${slug}`);
         setProduct(response.data);
       } catch (err) {
         console.log(err);
