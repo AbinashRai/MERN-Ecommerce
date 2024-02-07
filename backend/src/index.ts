@@ -3,6 +3,7 @@ import cors from "cors";
 import dotenv from "dotenv";
 import mongoose from "mongoose";
 import { productRouter } from "./routers/productRouter";
+import cartRoutes from "./routers/cartRoutes";
 
 dotenv.config();
 
@@ -27,6 +28,10 @@ app.use(
 );
 
 app.use("/api/products", productRouter);
+
+app.use(express.json());
+
+app.use("/", cartRoutes);
 
 const PORT = 4000;
 app.listen(PORT, () => {
