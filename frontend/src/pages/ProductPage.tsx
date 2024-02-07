@@ -20,6 +20,30 @@ const ProductPage = () => {
     fetchData();
   }, [slug]);
 
+  const handleAddToCart = async () => {
+    try {
+      // Fetch product details from the backend
+      const productResponse = await axios.get(`/api/products/slug/${slug}`);
+      const productData = productResponse.data;
+
+      // Send POST request to backend to add product to cart
+      await axios.post(`/api/cart/add`, {
+        name: productData.name,
+        _id: productData._id,
+        price: productData.price,
+        countInStock: productData.countInStock,
+        slug: productData.slug,
+        productId: productData._id,
+        quantity: 1,
+      });
+
+      // Update UI or provide feedback to user (optional)
+      console.log("Product added to cart successfully");
+    } catch (error) {
+      console.error("Error adding product to cart:", error);
+    }
+  };
+
   return (
     <div>
       {product ? (
@@ -36,7 +60,6 @@ const ProductPage = () => {
                 <ListGroup.Item>
                   <h1>{product.name}</h1>
                 </ListGroup.Item>
-                <ListGroup.Item></ListGroup.Item>
                 <ListGroup.Item>Price : ${product.price}</ListGroup.Item>
                 <ListGroup.Item>
                   Description:
@@ -70,7 +93,9 @@ const ProductPage = () => {
                     {product.countInStock > 0 && (
                       <ListGroup.Item>
                         <div className="d-grid">
-                          <Button variant="primary">Add to Cart</Button>
+                          <Button variant="primary" onClick={handleAddToCart}>
+                            Add to Cart
+                          </Button>
                         </div>
                       </ListGroup.Item>
                     )}
