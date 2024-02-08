@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useEffect, useState } from "react";
 import { Product } from "../types/Product";
 import axios from "axios";
 import { Badge, Button, Card, Col, ListGroup, Row } from "react-bootstrap";
@@ -22,25 +22,13 @@ const ProductPage = () => {
 
   const handleAddToCart = async () => {
     try {
-      // Fetch product details from the backend
-      const productResponse = await axios.get(`/api/products/slug/${slug}`);
-      const productData = productResponse.data;
-
-      // Send POST request to backend to add product to cart
       await axios.post(`/api/cart/add`, {
-        name: productData.name,
-        _id: productData._id,
-        price: productData.price,
-        countInStock: productData.countInStock,
-        slug: productData.slug,
-        productId: productData._id,
+        productId: product?._id,
         quantity: 1,
       });
-
-      // Update UI or provide feedback to user (optional)
       console.log("Product added to cart successfully");
     } catch (error) {
-      console.error("Error adding product to cart:", error);
+      console.log(error);
     }
   };
 

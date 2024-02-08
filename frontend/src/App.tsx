@@ -1,5 +1,5 @@
 import { Container, Nav, Navbar } from "react-bootstrap";
-import { Outlet } from "react-router-dom";
+import { Link, Outlet } from "react-router-dom";
 
 function App() {
   return (
@@ -11,9 +11,9 @@ function App() {
               <Navbar.Brand>ExpressCart</Navbar.Brand>
             </Container>
             <Nav>
-              <a href="/cart" className="nav-link">
+              <Link to="/cart" className="nav-link">
                 Cart
-              </a>
+              </Link>
               <a href="/signin" className="nav-link">
                 Sign In
               </a>

@@ -1,11 +1,13 @@
 import express from "express";
 import { CartItemModel } from "../models/CartItem";
+import { ObjectId } from "mongodb";
 
 const router = express.Router();
 
 router.post("/api/cart/add", async (req, res) => {
   try {
-    const { name, _id, price, countInStock, slug, quantity } = req.body;
+    const _id = new ObjectId();
+    const { name, price, countInStock, slug, quantity } = req.body;
 
     // Validate request data
     if (
