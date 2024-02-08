@@ -46,15 +46,7 @@ const CartPage = () => {
             <Card.Body>
               <ListGroup variant="flush">
                 <ListGroup.Item>
-                  <h3>
-                    Subtotal (
-                    {sampleProducts.reduce((a, c) => a + c.quantity, 0)} items)
-                    : $
-                    {sampleProducts.reduce(
-                      (a, c) => a + c.price * c.quantity,
-                      0
-                    )}
-                  </h3>
+                  <h3>Subtotal : $200</h3>
                 </ListGroup.Item>
                 <ListGroup.Item>
                   <div className="d-grid">

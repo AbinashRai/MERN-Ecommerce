@@ -9,7 +9,6 @@ router.post("/api/cart/add", async (req, res) => {
     const _id = new ObjectId();
     const { name, price, countInStock, slug, quantity } = req.body;
 
-    // Validate request data
     if (
       !name ||
       !_id ||
@@ -22,7 +21,6 @@ router.post("/api/cart/add", async (req, res) => {
       return res.status(400).json({ message: "Invalid request data" });
     }
 
-    // Create a new cart item document
     const newItem = new CartItemModel({
       name,
       _id,
@@ -32,10 +30,8 @@ router.post("/api/cart/add", async (req, res) => {
       quantity,
     });
 
-    // Save the new cart item to the database
     await newItem.save();
 
-    // Respond with success message
     res.status(201).json({ message: "Item added to cart successfully" });
   } catch (error) {
     console.error("Error adding item to cart:", error);
