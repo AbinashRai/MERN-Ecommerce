@@ -33,6 +33,8 @@ app.use(express.json());
 
 app.use("/", cartRoutes);
 
+app.post("/signup", (req, res) => {});
+
 const PORT = 4000;
 app.listen(PORT, () => {
   console.log(`server started at http://localhost:${PORT}`);
