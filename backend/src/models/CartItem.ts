@@ -1,15 +1,5 @@
 import { Schema, Document, model } from "mongoose";
 
-export interface ICartItem extends Document {
-  image?: string;
-  slug: string;
-  quantity: number;
-  countInStock: number;
-  price: number;
-  _id: string;
-  name: string;
-}
-
 const CartItemSchema: Schema = new Schema({
   image: { type: String },
   slug: { type: String, required: true },
@@ -20,4 +10,4 @@ const CartItemSchema: Schema = new Schema({
   name: { type: String, required: true },
 });
 
-export const CartItemModel = model<ICartItem>("CartItem", CartItemSchema);
+export const CartItemModel = model<Document>("CartItem", CartItemSchema);
