@@ -1,9 +1,10 @@
-import express from "express";
+import express, { Request, Response } from "express";
 import cors from "cors";
 import dotenv from "dotenv";
 import mongoose from "mongoose";
 import { productRouter } from "./routers/productRouter";
 import cartRoutes from "./routers/cartRoutes";
+import { UserModel } from "./models/User";
 
 dotenv.config();
 
@@ -33,7 +34,11 @@ app.use(express.json());
 
 app.use("/", cartRoutes);
 
-app.post("/signup", (req, res) => {});
+app.post("/signup", (req: Request, res: Response) => {
+  UserModel.create(req.body)
+    .then((user) => res.json(user))
+    .catch((err) => res.json(err));
+});
 
 const PORT = 4000;
 app.listen(PORT, () => {
