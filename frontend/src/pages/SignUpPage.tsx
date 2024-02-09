@@ -11,7 +11,7 @@ const SignUpPage = () => {
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     axios
-      .post("/signup", { name, email, password })
+      .post("http://localhost:4000/signup", { name, email, password })
       .then((result) => console.log(result))
       .catch((err) => console.log(err));
   };
@@ -25,7 +25,7 @@ const SignUpPage = () => {
         <Form.Group className="mb-3" controlId="name">
           <Form.Label>Name</Form.Label>
           <Form.Control
-            type="name"
+            type="text"
             required
             onChange={(e) => setName(e.target.value)}
           />
@@ -42,15 +42,6 @@ const SignUpPage = () => {
 
         <Form.Group className="mb-3" controlId="password">
           <Form.Label>Password</Form.Label>
-          <Form.Control
-            type="password"
-            required
-            onChange={(e) => setPassword(e.target.value)}
-          />
-        </Form.Group>
-
-        <Form.Group className="mb-3" controlId="confirmPassword">
-          <Form.Label>Confirm Password</Form.Label>
           <Form.Control
             type="password"
             required
