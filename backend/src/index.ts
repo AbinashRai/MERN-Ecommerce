@@ -40,6 +40,21 @@ app.post("/signup", (req: Request, res: Response) => {
     .catch((err) => res.json(err));
 });
 
+app.post("/login", (req: Request, res: Response) => {
+  const { email, password } = req.body;
+  UserModel.findOne({ email: email }).then((user) => {
+    if (user) {
+      if (user.password === password) {
+        res.json("Success");
+      } else {
+        res.json("The password is incorrect!");
+      }
+    } else {
+      res.json("The account is not registered!");
+    }
+  });
+});
+
 const PORT = 4000;
 app.listen(PORT, () => {
   console.log(`server started at http://localhost:${PORT}`);

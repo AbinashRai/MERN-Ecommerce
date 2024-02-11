@@ -58,7 +58,7 @@ const SignUpPage = () => {
         </div>
 
         <div className="mb-3">
-          Already have an account? <Link to={`/`}>Sign In</Link>
+          Already have an account? <Link to={`/login`}>Sign In</Link>
         </div>
       </Form>
     </Container>
