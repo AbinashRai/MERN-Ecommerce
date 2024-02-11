@@ -1,23 +1,27 @@
 import axios from "axios";
 import { useState } from "react";
 import { Button, Container, Form } from "react-bootstrap";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const SignUpPage = () => {
   const [name, setName] = useState<string>("");
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
+  const navigate = useNavigate();
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     axios
       .post("http://localhost:4000/signup", { name, email, password })
-      .then((result) => console.log(result))
+      .then((result) => {
+        console.log(result);
+        navigate("/login");
+      })
       .catch((err) => console.log(err));
   };
 
   return (
-    <Container className="small-container">
+    <Container className="wrapper">
       <title>Sign Up</title>
 
       <h1 className="my-3">Sign Up</h1>
