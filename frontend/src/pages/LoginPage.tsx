@@ -1,7 +1,7 @@
 import axios from "axios";
 import { useState } from "react";
 import { Button, Container, Form } from "react-bootstrap";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 const LoginPage = () => {
   const [email, setEmail] = useState<string>("");
@@ -43,12 +43,8 @@ const LoginPage = () => {
           />
         </Form.Group>
 
-        <div className="mb-3">
-          <Button type="submit">Sign Up</Button>
-        </div>
-
-        <div className="mb-3">
-          Already have an account? <Link to={`/`}>Sign In</Link>
+        <div className="mb-3 text-center">
+          <Button type="submit">Login</Button>
         </div>
       </Form>
     </Container>
