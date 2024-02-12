@@ -51,19 +51,19 @@ app.post("/signup", (req: Request, res: Response) => {
 
 app.post("/login", (req: Request, res: Response) => {
   const { email, password } = req.body;
+
   UserModel.findOne({ email: email }).then((user) => {
     if (user) {
       if (user.password) {
         bcrypt.compare(password, user.password, (err, response) => {
-          if (err) {
-            res.json("The password is incorrect!");
-          }
           if (response) {
             res.json("Success");
+          } else {
+            res.json("The password is incorrect");
           }
         });
       } else {
-        res.json("The account is not registered!");
+        res.json("Password is missing for the user");
       }
     } else {
       res.json("The account is not registered!");

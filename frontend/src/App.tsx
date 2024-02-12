@@ -8,7 +8,9 @@ function App() {
         <header>
           <Navbar bg="dark" variant="dark" expand="ld">
             <Container>
-              <Navbar.Brand>ExpressCart</Navbar.Brand>
+              <Link to="/">
+                <Navbar.Brand>ExpressCart</Navbar.Brand>
+              </Link>
             </Container>
             <Nav>
               <Link to="/cart" className="nav-link">
