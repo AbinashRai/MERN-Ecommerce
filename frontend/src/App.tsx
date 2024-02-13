@@ -1,7 +1,23 @@
+import axios from "axios";
+import { useEffect } from "react";
 import { Container, Nav, Navbar } from "react-bootstrap";
-import { Link, Outlet } from "react-router-dom";
+import { Link, Outlet, useNavigate } from "react-router-dom";
 
 function App() {
+  axios.defaults.withCredentials = true;
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    axios
+      .get("http://localhost:4000/")
+      .then((result) => {
+        console.log(result);
+        if (result.data !== "Success") {
+          navigate("/login");
+        }
+      })
+      .catch((err) => console.log(err));
+  }, []);
   return (
     <>
       <div className="d-flex flex-column vh-100">

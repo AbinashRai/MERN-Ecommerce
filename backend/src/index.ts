@@ -1,4 +1,4 @@
-import express, { Request, Response } from "express";
+import express, { NextFunction, Request, Response } from "express";
 import cors from "cors";
 import dotenv from "dotenv";
 import mongoose from "mongoose";
@@ -6,8 +6,8 @@ import { productRouter } from "./routers/productRouter";
 import cartRoutes from "./routers/cartRoutes";
 import { UserModel } from "./models/User";
 import bcrypt from "bcrypt";
-// import jwt from "jsonwebtoken";
-// import cookieParser from 'cookie-parser';
+import jwt, { VerifyErrors } from "jsonwebtoken";
+import cookieParser from "cookie-parser";
 
 dotenv.config();
 
@@ -31,6 +31,8 @@ app.use(
   })
 );
 
+app.use(cookieParser());
+
 app.use("/api/products", productRouter);
 
 app.use(express.json());
@@ -49,6 +51,27 @@ app.post("/signup", (req: Request, res: Response) => {
     .catch((err) => console.log(err.message));
 });
 
+const verifyUser = (req: Request, res: Response, next: NextFunction) => {
+  const token = req.cookies.token;
+  console.log(token);
+  if (!token) {
+    return res.json("The token as not available");
+  } else {
+    jwt.verify(
+      token,
+      "jwt-secret-key",
+      (err: VerifyErrors | null, decoded: object | undefined) => {
+        if (err) return res.json("Token is wrong");
+        next();
+      }
+    );
+  }
+};
+
+app.get("/", verifyUser, (req, res) => {
+  return res.json("Success");
+});
+
 app.post("/login", (req: Request, res: Response) => {
   const { email, password } = req.body;
 
@@ -57,6 +80,10 @@ app.post("/login", (req: Request, res: Response) => {
       if (user.password) {
         bcrypt.compare(password, user.password, (err, response) => {
           if (response) {
+            const token = jwt.sign({ email: user.email }, "jwt-secret-key", {
+              expiresIn: "1d",
+            });
+            res.cookie("token", token);
             res.json("Success");
           } else {
             res.json("The password is incorrect");
@@ -70,8 +97,6 @@ app.post("/login", (req: Request, res: Response) => {
     }
   });
 });
-
-// app.use(cookieParser())
 
 const PORT = 4000;
 app.listen(PORT, () => {

@@ -15,7 +15,7 @@ const SignUpPage = () => {
       .post("http://localhost:4000/signup", { name, email, password })
       .then((result) => {
         console.log(result);
-        navigate("/login");
+        // navigate("/login");
       })
       .catch((err) => console.log(err));
   };
